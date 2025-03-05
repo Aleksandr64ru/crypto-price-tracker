@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { getCryptoPrice } from './services/cryptoApi';
+import { getCryptoPrices } from './services/cryptoApi';
 import styled from 'styled-components';
 
 const App: React.FC = () => {
-  const [prices, setPrices] = useState<{ [key: string]: number }>({});
-  const cryptocurrencies = ['bitcoin', 'ethereum', 'litecoin'];
+  const [cryptos, setCryptos] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchPrices = async () => {
-      const newPrices: { [key: string]: number } = {};
-      for (const crypto of cryptocurrencies) {
-        const price = await getCryptoPrice(crypto);
-        if (price !== null) {
-          newPrices[crypto] = price;
-        }
-      }
-      setPrices(newPrices);
+      const prices = await getCryptoPrices();
+      setCryptos(prices);
     };
 
     fetchPrices();
@@ -25,18 +18,32 @@ const App: React.FC = () => {
     <Container>
       <Header>Crypto Price Tracker</Header>
       <CryptoList>
-        {cryptocurrencies.map((crypto) => (
-          <CryptoItem key={crypto}>
-            <CryptoTitle>
-              {crypto.charAt(0).toUpperCase() + crypto.slice(1)} Price
-            </CryptoTitle>
-            {prices[crypto] ? (
-              <CryptoPrice>${prices[crypto].toLocaleString()}</CryptoPrice>
-            ) : (
-              <LoadingText>Loading...</LoadingText>
-            )}
-          </CryptoItem>
-        ))}
+        {cryptos.length > 0 ? (
+          cryptos.map((crypto) => (
+            <CryptoItem key={crypto.id}>
+              <CryptoTitle>
+                <CryptoImage src={crypto.image} alt={crypto.name} />
+                {crypto.name} ({crypto.symbol.toUpperCase()})
+              </CryptoTitle>
+              <CryptoPrice>
+                ${crypto.current_price.toLocaleString()}
+              </CryptoPrice>
+              <MarketCap>
+                Market Cap: ${crypto.market_cap.toLocaleString()}
+              </MarketCap>
+              <Volume>
+                Volume (24h): ${crypto.total_volume.toLocaleString()}
+              </Volume>
+              <PriceChange24h
+                isPositive={crypto.price_change_percentage_24h > 0}
+              >
+                24h Change: {crypto.price_change_percentage_24h.toFixed(2)}%
+              </PriceChange24h>
+            </CryptoItem>
+          ))
+        ) : (
+          <LoadingText>Loading...</LoadingText>
+        )}
       </CryptoList>
     </Container>
   );
@@ -59,8 +66,8 @@ const Header = styled.h1`
 
 const CryptoList = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 `;
 
@@ -85,12 +92,35 @@ const CryptoTitle = styled.h2`
   font-size: 1.25rem;
   margin-bottom: 10px;
   color: #444;
+  display: flex;
+  align-items: center;
+`;
+
+const CryptoImage = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
 `;
 
 const CryptoPrice = styled.p`
   font-size: 1.5rem;
   color: #2cbe76;
   font-weight: bold;
+`;
+
+const MarketCap = styled.p`
+  font-size: 1rem;
+  color: #777;
+`;
+
+const Volume = styled.p`
+  font-size: 1rem;
+  color: #777;
+`;
+
+const PriceChange24h = styled.p<{ isPositive: boolean }>`
+  font-size: 1rem;
+  color: ${(props) => (props.isPositive ? 'green' : 'red')};
 `;
 
 const LoadingText = styled.p`
