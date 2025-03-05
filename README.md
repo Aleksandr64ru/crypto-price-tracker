@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+src/
+├── assets/ // для картинок и других статичных файлов
+├── components/ // для React-компонентов
+├── services/ // для работы с API (например, axios)
+├── utils/ // для вспомогательных функций
+├── styles/ // для глобальных стилей (если используешь styled-components)
+└── App.tsx // основной компонент
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm run lint для проверки кода на ошибки.
+npm run lint:fix для авто-исправления.
+npm run format для форматирования кода с использованием Prettier.
 
-## Available Scripts
+Crypto Price Tracker
+Crypto Price Tracker — это простое веб-приложение для отслеживания актуальных цен на криптовалюты. Оно использует публичный API (например, CoinGecko) для получения данных и отображения информации о различных криптовалютах в реальном времени.
 
-In the project directory, you can run:
+Функции
+Отображение актуальных цен на криптовалюты в реальном времени.
+Возможность отслеживания нескольких популярных криптовалют, таких как Bitcoin, Ethereum, Litecoin и другие.
+Информация о рыночной капитализации, объемах торгов и процентных изменениях за последние 24 часа.
+Простой и удобный интерфейс с использованием styled-components для стилизации.
+Стек технологий
+React с TypeScript для создания пользовательского интерфейса.
+Axios для выполнения HTTP-запросов.
+Recharts для визуализации графиков.
+styled-components для стилизации компонентов.
+CoinGecko API для получения актуальных данных о криптовалютах.
+Установка и запуск
+Клонируйте репозиторий:
 
-### `npm start`
+bash
+Copy
+git clone https://github.com/yourusername/crypto-price-tracker.git
+cd crypto-price-tracker
+Установите зависимости:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+bash
+Copy
+npm install
+Запустите приложение:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+bash
+Copy
+npm start
+Приложение будет доступно по адресу http://localhost:3000.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Структура проекта
+cpp
+Copy
+src/
+  ├── assets/         // для картинок и других статичных файлов
+  ├── components/     // для React-компонентов
+  ├── services/       // для работы с API
+  ├── utils/          // для вспомогательных функций
+  ├── styles/         // для глобальных стилей (если используешь styled-components)
+  ├── App.tsx         // основной компонент
+  └── index.tsx       // точка входа
+Как работает приложение
+При запуске приложения выполняется запрос к API (например, CoinGecko).
+Полученные данные о криптовалютах (цены, объемы торгов, рыночная капитализация) отображаются в виде списка.
+Графики показывают динамику изменения цен криптовалют за последние 7 дней.
+Интерфейс отображает текущие цены в реальном времени с обновлением каждые несколько секунд.
+Возможности для расширения
+Добавление функционала для конвертации криптовалют.
+Интеграция с другими API для получения более подробной информации о криптовалютах.
+Темная/светлая тема для улучшения пользовательского опыта.
+Уведомления о значительных изменениях цен.
+Подключение аутентификации пользователей для сохранения избранных криптовалют и портфелей.
+Автор
+Your Name
