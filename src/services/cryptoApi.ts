@@ -9,7 +9,7 @@ export const getCryptoPrices = async () => {
         params: {
           vs_currency: 'usd',
           order: 'market_cap_desc', // Сортируем по рыночной капитализации
-          per_page: 10, // Получаем первые 10 криптовалют
+          per_page: 15, // Получаем первые 10 криптовалют
           page: 1, // Начинаем с первой страницы
         },
       },

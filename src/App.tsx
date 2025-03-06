@@ -1,58 +1,93 @@
+// App.tsx
 import React, { useEffect, useState } from 'react';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { getCryptoPrices } from './services/cryptoApi';
+import { lightTheme, darkTheme } from './theme';
 import styled from 'styled-components';
+
+// Глобальные стили
+const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Poppins:wght@300;400;600&display=swap');
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.text};
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  h1, h2 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  button {
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 const App: React.FC = () => {
   const [cryptos, setCryptos] = useState<any[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(
+    () => localStorage.getItem('theme') === 'dark',
+  );
 
   useEffect(() => {
     const fetchPrices = async () => {
       const prices = await getCryptoPrices();
       setCryptos(prices);
     };
-
     fetchPrices();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
   return (
-    <Container>
-      <Header>Crypto Price Tracker</Header>
-      <CryptoList>
-        {cryptos.length > 0 ? (
-          cryptos.map((crypto) => (
-            <CryptoItem key={crypto.id}>
-              <CryptoTitle>
-                <CryptoImage src={crypto.image} alt={crypto.name} />
-                {crypto.name} ({crypto.symbol.toUpperCase()})
-              </CryptoTitle>
-              <CryptoPrice>
-                ${crypto.current_price.toLocaleString()}
-              </CryptoPrice>
-              <MarketCap>
-                Market Cap: ${crypto.market_cap.toLocaleString()}
-              </MarketCap>
-              <Volume>
-                Volume (24h): ${crypto.total_volume.toLocaleString()}
-              </Volume>
-              <PriceChange24h
-                isPositive={crypto.price_change_percentage_24h > 0}
-              >
-                24h Change: {crypto.price_change_percentage_24h.toFixed(2)}%
-              </PriceChange24h>
-            </CryptoItem>
-          ))
-        ) : (
-          <LoadingText>Loading...</LoadingText>
-        )}
-      </CryptoList>
-    </Container>
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <Container>
+        <Header>
+          Crypto Price Tracker
+          <ThemeToggle onClick={() => setIsDarkMode(!isDarkMode)}>
+            {isDarkMode ? '🌞 Light Mode' : '🌜 Dark Mode'}
+          </ThemeToggle>
+        </Header>
+        <CryptoList>
+          {cryptos.length > 0 ? (
+            cryptos.map((crypto) => (
+              <CryptoItem key={crypto.id}>
+                <CryptoTitle>
+                  <CryptoImage src={crypto.image} alt={crypto.name} />
+                  {crypto.name} ({crypto.symbol.toUpperCase()})
+                </CryptoTitle>
+                <CryptoPrice>
+                  ${crypto.current_price.toLocaleString()}
+                </CryptoPrice>
+                <MarketCap>
+                  Market Cap: ${crypto.market_cap.toLocaleString()}
+                </MarketCap>
+                <Volume>
+                  Volume (24h): ${crypto.total_volume.toLocaleString()}
+                </Volume>
+                <PriceChange24h
+                  isPositive={crypto.price_change_percentage_24h > 0}
+                >
+                  24h Change: {crypto.price_change_percentage_24h.toFixed(2)}%
+                </PriceChange24h>
+              </CryptoItem>
+            ))
+          ) : (
+            <LoadingText>Loading...</LoadingText>
+          )}
+        </CryptoList>
+      </Container>
+    </ThemeProvider>
   );
 };
 
-// Styled components
+// Styled Components
 const Container = styled.div`
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
   padding: 20px;
   text-align: center;
   min-height: 100vh;
@@ -61,7 +96,24 @@ const Container = styled.div`
 const Header = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 30px;
-  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ThemeToggle = styled.button`
+  padding: 10px;
+  background: none;
+  border: 2px solid ${(props) => props.theme.text};
+  border-radius: 5px;
+  color: ${(props) => props.theme.text};
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${(props) => props.theme.text};
+    color: ${(props) => props.theme.background};
+  }
 `;
 
 const CryptoList = styled.div`
@@ -72,7 +124,7 @@ const CryptoList = styled.div`
 `;
 
 const CryptoItem = styled.div`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.cardBg};
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -91,7 +143,6 @@ const CryptoItem = styled.div`
 const CryptoTitle = styled.h2`
   font-size: 1.25rem;
   margin-bottom: 10px;
-  color: #444;
   display: flex;
   align-items: center;
 `;
@@ -104,23 +155,22 @@ const CryptoImage = styled.img`
 
 const CryptoPrice = styled.p`
   font-size: 1.5rem;
-  color: #2cbe76;
+  color: ${(props) => props.theme.priceUp};
   font-weight: bold;
 `;
 
 const MarketCap = styled.p`
   font-size: 1rem;
-  color: #777;
 `;
 
 const Volume = styled.p`
   font-size: 1rem;
-  color: #777;
 `;
 
 const PriceChange24h = styled.p<{ isPositive: boolean }>`
   font-size: 1rem;
-  color: ${(props) => (props.isPositive ? 'green' : 'red')};
+  color: ${(props) =>
+    props.isPositive ? props.theme.priceUp : props.theme.priceDown};
 `;
 
 const LoadingText = styled.p`

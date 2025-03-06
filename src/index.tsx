@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client'; // импортировать из 'react-dom/client'
-import './index.css'; // Импорт глобальных стилей
 import App from './App'; // Импорт компонента App
 
 // Создание root-элемента
