@@ -66,7 +66,7 @@ src/
 Этот компонент отображает список криптовалют, используя CryptoItem.
 
 ```bash
-Edit
+
 import React from 'react';
 import { CryptoList as StyledCryptoList } from '../styles/CryptoStyles';
 import CryptoItem from './CryptoItem';
@@ -96,6 +96,7 @@ export default CryptoList;
 Этот компонент отображает данные одной криптовалюты (цена, изменение, объем).
 
 ```bash
+
 import React from 'react';
 import {
   CryptoItem as StyledCryptoItem,
@@ -140,6 +141,7 @@ export default CryptoItem;
 Этот компонент содержит заголовок и кнопку переключения темы.
 
 ```bash
+
 import React from 'react';
 import { Header as StyledHeader, HeaderTitle } from '../styles/HeaderStyles';
 import ThemeToggle from './ThemeToggle';
@@ -163,6 +165,7 @@ export default Header;
 ## ThemeToggle.tsx (Кнопка переключения темы)
 
 ```bash
+
 import React from 'react';
 import { ThemeToggle as StyledThemeToggle } from '../styles/ThemeToggleStyles';
 
@@ -186,6 +189,7 @@ export default ThemeToggle;
 Этот файл отвечает за получение данных о криптовалютах с CoinGecko API. Для выполнения запросов на сервер используется библиотека Axios.
 
 ```bash
+
 import axios from 'axios';
 
 const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
@@ -214,6 +218,7 @@ export const getCryptoPrices = async () => {
 Файл theme.ts содержит стили для светлой и тёмной темы.
 
 ```bash
+
 export const lightTheme = {
   background: '#f4f4f4',
   text: '#333',
