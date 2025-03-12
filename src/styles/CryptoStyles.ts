@@ -8,7 +8,7 @@ export const CryptoList = styled.div`
 
 export const CryptoItem = styled.div`
   display: grid;
-  grid-template-columns: 40px 40px 2fr 1fr 1fr;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr;
   align-items: center;
   background-color: ${(props) => props.theme.cardBg};
   padding: 10px;
@@ -27,6 +27,7 @@ export const CryptoItem = styled.div`
 export const CryptoImage = styled.img`
   width: 30px;
   height: 30px;
+  margin-right: 10px;
 `;
 
 export const Price = styled.span<{ isPositive: boolean }>`
@@ -38,4 +39,11 @@ export const Price = styled.span<{ isPositive: boolean }>`
 export const PriceChange = styled.span<{ isPositive: boolean }>`
   color: ${(props) =>
     props.isPositive ? props.theme.priceUp : props.theme.priceDown};
+`;
+
+export const Volume = styled.span`
+  font-size: 0.875rem;
+  color: ${(props) => props.theme.text};
+  display: flex;
+  justify-content: flex-end;
 `;
