@@ -33,7 +33,7 @@ src/
 sh
 Copy
 Edit
-git clone https://github.com/yourusername/crypto-price-tracker.git
+git clone https://github.com/Aleksandr64ru/crypto-price-tracker.git
 cd crypto-price-tracker
 2. Установка зависимостей
 sh
