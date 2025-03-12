@@ -10,9 +10,8 @@ Crypto Price Tracker — это простое веб-приложение дл�
 - ✅ Адаптивный дизайн для удобного просмотра на разных устройствах.
 
 📂 Структура проекта
-bash
-Copy
-Edit
+
+```bash
 src/
 ├─ components/         # Основные компоненты React
 │    ├─ CryptoList.tsx      # Список криптовалют
@@ -28,32 +27,32 @@ src/
 │    ├─ cryptoApi.ts        # Функция для получения данных с CoinGecko
 ├─ theme.ts           # Темы (светлая/тёмная)
 ├─ App.tsx            # Главный компонент приложения
+```
+
 🛠️ Установка и запуск
 1. Клонирование репозитория
-sh
-Copy
-Edit
-git clone https://github.com/Aleksandr64ru/crypto-price-tracker.git
-cd crypto-price-tracker
+
+```bash git clone https://github.com/Aleksandr64ru/crypto-price-tracker.git ```
+
+```bash cd crypto-price-tracker ```
+
 2. Установка зависимостей
-sh
-Copy
-Edit
-npm install
+
+```bash npm install ```
+
 3. Запуск приложения
-sh
-Copy
-Edit
-npm start
+
+```bash npm start ```
+
 Приложение будет доступно по адресу http://localhost:3000/.
 
 ## 📌 Использование компонентов
 
 ## CryptoList.tsx (Список криптовалют)
+
 Этот компонент отображает список криптовалют, используя CryptoItem.
 
-tsx
-Copy
+```bash
 Edit
 import React from 'react';
 import { CryptoList as StyledCryptoList } from '../styles/CryptoStyles';
@@ -77,13 +76,13 @@ const CryptoList: React.FC<CryptoListProps> = ({ cryptos }) => (
 );
 
 export default CryptoList;
+```
 
 ## CryptoItem.tsx (Отдельный элемент криптовалюты)
+
 Этот компонент отображает данные одной криптовалюты (цена, изменение, объем).
 
-tsx
-Copy
-Edit
+```bash
 import React from 'react';
 import {
   CryptoItem as StyledCryptoItem,
@@ -120,12 +119,13 @@ const CryptoItem: React.FC<CryptoItemProps> = ({ crypto, index }) => (
 
 export default CryptoItem;
 
+```
+
+
 ## Header.tsx (Шапка с переключателем темы)
 Этот компонент содержит заголовок и кнопку переключения темы.
 
-tsx
-Copy
-Edit
+```bash
 import React from 'react';
 import { Header as StyledHeader, HeaderTitle } from '../styles/HeaderStyles';
 import ThemeToggle from './ThemeToggle';
@@ -144,10 +144,11 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, onToggleTheme }) => (
 
 export default Header;
 
+```
+
 ## ThemeToggle.tsx (Кнопка переключения темы)
-tsx
-Copy
-Edit
+
+```bash
 import React from 'react';
 import { ThemeToggle as StyledThemeToggle } from '../styles/ThemeToggleStyles';
 
@@ -164,13 +165,13 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDarkMode, onToggle }) => (
 
 export default ThemeToggle;
 
+```
+
 ## 📌 Работа с API (cryptoApi.ts)
 
 Этот файл отвечает за получение данных о криптовалютах с CoinGecko API.
 
-tsx
-Copy
-Edit
+```bash
 import axios from 'axios';
 
 const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
@@ -191,12 +192,14 @@ export const getCryptoPrices = async () => {
     return [];
   }
 };
+
+```
+
 🎨 Темы (theme.ts)
+
 Файл theme.ts содержит стили для светлой и тёмной темы.
 
-tsx
-Copy
-Edit
+```bash
 export const lightTheme = {
   background: '#f4f4f4',
   text: '#333',
@@ -213,19 +216,17 @@ export const darkTheme = {
   priceDown: '#e74c3c',
 };
 
+```
+
 ## ✅ Полезные команды
 Проверка кода на ошибки
-sh
-Copy
-Edit
-npm run lint
-Автоисправление ошибок
-sh
-Copy
-Edit
-npm run lint:fix
-Форматирование кода (Prettier)
-sh
-Copy
-Edit
-npm run format
+
+```bash npm run lint ``` - Автоисправление ошибок.
+
+```bash npm run lint:fix ``` - Форматирование кода (Prettier).
+
+```bash npm run format ``` -  Автоматического форматирования кода.
+
+№№ Заключение.
+
+Так как проект представляет собой упрощённуюк версию рипто-сайта для отслеживания цен, в будующем возможно добавление поиска криптовалют, графиков , создание профиля , добавление монет в избранное и т.д.
