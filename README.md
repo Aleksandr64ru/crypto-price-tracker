@@ -14,7 +14,7 @@ Crypto Price Tracker — это простое веб-приложение дл�
 - **TypeScript**
 - **React**
 - **HTML**
-- - **Styled-components**
+- **Styled-components**
 - **Flexbox**
 - **Grid layout**
 - **Axios**
