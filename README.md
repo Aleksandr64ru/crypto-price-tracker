@@ -19,6 +19,7 @@ Crypto Price Tracker — это простое веб-приложение дл�
 - **Grid layout**
 - **Styled-components**
 - **Axios**
+- **Prettier**
 
 ## 📂 Структура проекта
 
