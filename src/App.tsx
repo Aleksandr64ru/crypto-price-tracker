@@ -5,9 +5,10 @@ import { lightTheme, darkTheme } from './theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import Header from './components/Header';
 import CryptoList from './components/CryptoList';
+import { Crypto } from './types/Crypto';
 
 const App: React.FC = () => {
-  const [cryptos, setCryptos] = useState<any[]>([]);
+  const [cryptos, setCryptos] = useState<Crypto[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
     () => localStorage.getItem('theme') === 'dark',
   );
