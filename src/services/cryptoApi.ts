@@ -11,6 +11,7 @@ export const getCryptoPrices = async () => {
           order: 'market_cap_desc', // Сортируем по рыночной капитализации
           per_page: 15, // Получаем первые 10 криптовалют
           page: 1, // Начинаем с первой страницы
+          sparkline: true, // не большай график рядом с монетой
         },
       },
     );

@@ -8,6 +8,7 @@ import {
 } from '../styles/CryptoStyles';
 import { Crypto } from '../types/Crypto';
 import { formatVolume } from '../utils/formatNumber';
+import SparklineChart from './SparklineChart';
 
 interface CryptoItemProps {
   crypto: Crypto;
@@ -23,6 +24,7 @@ const CryptoItem: React.FC<CryptoItemProps> = ({ crypto, index }) => (
         <span>
           {crypto.name} ({crypto.symbol.toUpperCase()})
         </span>
+        <SparklineChart data={crypto.sparkline_in_7d?.price || []} />
       </div>
     </div>
     <Price isPositive={crypto.price_change_percentage_24h > 0}>
