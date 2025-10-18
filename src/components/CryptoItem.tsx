@@ -24,7 +24,7 @@ const CryptoItem: React.FC<CryptoItemProps> = ({ crypto, index }) => (
         <span>
           {crypto.name} ({crypto.symbol.toUpperCase()})
         </span>
-        <SparklineChart data={crypto.sparkline_in_7d?.price || []} />
+        {/* <SparklineChart data={crypto.sparkline_in_7d?.price || []} /> */}
       </div>
     </div>
     <Price isPositive={crypto.price_change_percentage_24h > 0}>
@@ -34,6 +34,7 @@ const CryptoItem: React.FC<CryptoItemProps> = ({ crypto, index }) => (
       {crypto.price_change_percentage_24h.toFixed(2)}%
     </PriceChange>
     <Volume>Volume (24h): ${formatVolume(crypto.total_volume)}</Volume>
+    <SparklineChart data={crypto.sparkline_in_7d?.price || []} />
   </StyledCryptoItem>
 );
 
