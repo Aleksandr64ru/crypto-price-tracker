@@ -9,6 +9,7 @@ export const CryptoList = styled.div`
 export const CryptoItem = styled.div`
   display: grid;
   grid-template-columns: 40px 2fr 1fr 1fr 1fr;
+  gap: 6px;
   align-items: center;
   background-color: ${(props) => props.theme.cardBg};
   padding: 10px;
