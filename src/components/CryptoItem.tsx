@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {
@@ -22,7 +22,7 @@ interface CryptoItemProps {
   index: number;
 }
 
-const CryptoItem: React.FC<CryptoItemProps> = ({ crypto, index }) => {
+const CryptoItem: React.FC<CryptoItemProps> = memo(({ crypto, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
@@ -70,6 +70,6 @@ const CryptoItem: React.FC<CryptoItemProps> = ({ crypto, index }) => {
       <SparklineChart data={crypto.sparkline_in_7d?.price || []} />
     </StyledCryptoItem>
   );
-};
+});
 
 export default CryptoItem;
