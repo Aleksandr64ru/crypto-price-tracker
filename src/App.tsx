@@ -9,14 +9,19 @@ import { Crypto } from './types/Crypto';
 
 const App: React.FC = () => {
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // <-- добавлено
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
     () => localStorage.getItem('theme') === 'dark',
   );
 
   useEffect(() => {
     const fetchPrices = async () => {
-      const prices = await getCryptoPrices();
-      setCryptos(prices);
+      try {
+        const prices = await getCryptoPrices();
+        setCryptos(prices);
+      } finally {
+        setLoading(false); // <-- загрузка закончена
+      }
     };
     fetchPrices();
   }, []);
@@ -32,7 +37,8 @@ const App: React.FC = () => {
         isDarkMode={isDarkMode}
         onToggleTheme={() => setIsDarkMode(!isDarkMode)}
       />
-      <CryptoList cryptos={cryptos} />
+
+      <CryptoList cryptos={cryptos} loading={loading} />
     </ThemeProvider>
   );
 };

@@ -27,13 +27,15 @@ src/
 ├─ components/         # Основные компоненты React
 │    ├─ CryptoList.tsx      # Список криптовалют
 │    ├─ CryptoItem.tsx      # Отдельный элемент криптовалюты
-│    ├─ Header.tsx          # Заголовок с переключением темы
+│    ├─ Header.tsx         # Заголовок с переключением темы
+     ├─ SearchInput.tsx    # Поле для поиска криптовалюты
 ├─   ├─ SparklineChart.tsx  # Не большой график, показывающий тренд валют
 │    ├─ ThemeToggle.tsx     # Компонент кнопки переключения темы
 ├─ styles/            # Стили с использованием styled-components
 │    ├─ GlobalStyle.ts       # Глобальные стили
 │    ├─ CryptoStyles.ts      # Стили для списка криптовалют
 │    ├─ HeaderStyles.ts      # Стили для заголовка
+     ├─ SearchInputStyle.ts      # Стили для стороки поиска
 │    ├─ ThemeToggleStyles.ts # Стили для переключателя темы
 ├─ services/          # API-запросы
 │    ├─ cryptoApi.ts        # Функция для получения данных с CoinGecko
@@ -80,28 +82,49 @@ src/
 
 ```bash
 
-import React from 'react';
-import { CryptoList as StyledCryptoList } from '../styles/CryptoStyles';
-import CryptoItem from './CryptoItem';
-import { Crypto } from '../types/Crypto';
-
 interface CryptoListProps {
   cryptos: Crypto[];
+  loading: boolean;
 }
 
-const CryptoList: React.FC<CryptoListProps> = ({ cryptos }) => (
-  <StyledCryptoList>
-    {cryptos.length > 0 ? (
-      cryptos.map((crypto, index) => (
-        <CryptoItem key={crypto.id} crypto={crypto} index={index} />
-      ))
-    ) : (
-      <p>Loading...</p>
-    )}
-  </StyledCryptoList>
-);
+const CryptoList: React.FC<CryptoListProps> = ({ cryptos, loading }) => {
+  const [query, setQuery] = useState<string>('');
 
-export default CryptoList;
+  const filteredCryptos = useMemo(() => {
+    if (!query) return cryptos;
+    return cryptos.filter(
+      (crypto) =>
+        crypto.name.toLowerCase().includes(query.toLowerCase()) ||
+        crypto.symbol.toLowerCase().includes(query.toLowerCase()),
+    );
+  }, [query, cryptos]);
+
+  if (loading) {
+    return (
+      <p className="text-center text-gray-500 dark:text-gray-400">
+        Идёт загрузка...
+      </p>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <SearchInput onSearch={setQuery} />
+      <StyledCryptoList>
+        {filteredCryptos.length > 0 ? (
+          filteredCryptos.map((crypto, index) => (
+            <CryptoItem key={crypto.id} crypto={crypto} index={index} />
+          ))
+        ) : (
+          <p className="text-center text-gray-500 dark:text-gray-400">
+            Криптовалюты не найдены
+          </p>
+        )}
+      </StyledCryptoList>
+    </div>
+  );
+};
+
 ```
 
 - ## CryptoItem.tsx (Отдельный элемент криптовалюты)
@@ -292,6 +315,44 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDarkMode, onToggle }) => (
 export default ThemeToggle;
 
 ```
+
+## SearchInput.tsx 
+
+Файл преднозначен для поиска криптовалюты, представляет собой обычную строку для поиска
+
+```bash
+
+interface SearchInputProps {
+  placeholder?: string;
+  onSearch: (query: string) => void;
+}
+
+const SearchInput: React.FC<SearchInputProps> = ({
+  placeholder = 'Поиск криптовалюты...',
+  onSearch,
+}) => {
+  const [query, setQuery] = useState<string>('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    onSearch(value);
+  };
+
+  return (
+    <SearchInputWrapper>
+      <SearchInputField
+        type="text"
+        value={query}
+        onChange={handleChange}
+        placeholder={placeholder}
+      />
+    </SearchInputWrapper>
+  );
+};
+
+```
+
 
 ## 📌 Работа с API (cryptoApi.ts)
 
