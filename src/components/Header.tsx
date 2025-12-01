@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isDarkMode, onToggleTheme }) => (
   <StyledHeader>
-    <HeaderTitle>Crypto Price Tracker</HeaderTitle>
+    <HeaderTitle isDarkMode={isDarkMode}>Crypto Price Tracker</HeaderTitle>
     <ThemeToggle isDarkMode={isDarkMode} onToggle={onToggleTheme} />
   </StyledHeader>
 );
