@@ -15,8 +15,7 @@ export const ThemeToggle = styled.button<{ isDarkMode?: boolean }>`
   .emoji {
     font-size: 1.2rem;
   }
-сд
-  .text {
+  сд .text {
     background: ${(props) =>
       props.isDarkMode
         ? 'linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff)'
