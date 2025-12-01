@@ -25,6 +25,12 @@ interface CryptoItemProps {
 const CryptoItem: React.FC<CryptoItemProps> = memo(({ crypto, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  // безопасные значения вместо null
+  const price = crypto.current_price ?? 0;
+  const change24h = crypto.price_change_percentage_24h ?? 0;
+  const volume24h = crypto.total_volume ?? 0;
+  const sparkline = crypto.sparkline_in_7d?.price ?? [];
+
   return (
     <StyledCryptoItem>
       <span>{index + 1}.</span>
@@ -57,17 +63,15 @@ const CryptoItem: React.FC<CryptoItemProps> = memo(({ crypto, index }) => {
         </ImageWrapper>
       </CryptoColumn>
 
-      <Price isPositive={crypto.price_change_percentage_24h > 0}>
-        ${crypto.current_price.toLocaleString()}
-      </Price>
+      <Price isPositive={change24h > 0}>${price.toLocaleString()}</Price>
 
-      <PriceChange isPositive={crypto.price_change_percentage_24h > 0}>
-        {crypto.price_change_percentage_24h.toFixed(2)}%
+      <PriceChange isPositive={change24h > 0}>
+        {change24h.toFixed(2)}%
       </PriceChange>
 
-      <Volume>Volume (24h): ${formatVolume(crypto.total_volume)}</Volume>
+      <Volume>Volume (24h): ${formatVolume(volume24h)}</Volume>
 
-      <SparklineChart data={crypto.sparkline_in_7d?.price || []} />
+      <SparklineChart data={sparkline} />
     </StyledCryptoItem>
   );
 });

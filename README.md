@@ -160,6 +160,12 @@ interface CryptoItemProps {
 const CryptoItem: React.FC<CryptoItemProps> = memo(({ crypto, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  // безопасные значения вместо null
+  const price = crypto.current_price ?? 0;
+  const change24h = crypto.price_change_percentage_24h ?? 0;
+  const volume24h = crypto.total_volume ?? 0;
+  const sparkline = crypto.sparkline_in_7d?.price ?? [];
+
   return (
     <StyledCryptoItem>
       <span>{index + 1}.</span>
@@ -210,6 +216,20 @@ const CryptoItem: React.FC<CryptoItemProps> = memo(({ crypto, index }) => {
 export default CryptoItem;
 
 ```
+Безопасная обработка данных API
+Ранее приложение могло падать с ошибкой Cannot read properties of null (reading 'toFixed'), если API возвращал null для полей price_change_percentage_24h, current_price или total_volume.
+Для защиты добавлены безопасные значения через оператор ??:
+
+```bash
+
+  const price = crypto.current_price ?? 0;
+  const change24h = crypto.price_change_percentage_24h ?? 0;
+  const volume24h = crypto.total_volume ?? 0;
+  const sparkline = crypto.sparkline_in_7d?.price ?? [];
+
+```
+
+Это гарантирует, что .toFixed() и .toLocaleString() вызываются только на числах, предотвращая падение приложения.
 
 - ## SparklineChart.tsx (Отдельный элемент криптовалюты)
 
