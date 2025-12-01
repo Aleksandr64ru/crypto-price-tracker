@@ -1,8 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { CryptoList as StyledCryptoList } from '../styles/CryptoStyles';
 import CryptoItem from './CryptoItem';
-import { Crypto } from '../types/Crypto';
 import SearchInput from './SearchInput';
+import { Crypto } from '../types/Crypto';
+import {
+  CryptoListWrapper,
+  StyledCryptoList,
+  LoadingText,
+  NoResultsText,
+} from '../styles/CryptoListStyles';
 
 interface CryptoListProps {
   cryptos: Crypto[];
@@ -22,15 +27,11 @@ const CryptoList: React.FC<CryptoListProps> = ({ cryptos, loading }) => {
   }, [query, cryptos]);
 
   if (loading) {
-    return (
-      <p className="text-center text-gray-500 dark:text-gray-400">
-        Идёт загрузка...
-      </p>
-    );
+    return <LoadingText>Идёт загрузка...</LoadingText>;
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <CryptoListWrapper>
       <SearchInput onSearch={setQuery} />
       <StyledCryptoList>
         {filteredCryptos.length > 0 ? (
@@ -38,12 +39,10 @@ const CryptoList: React.FC<CryptoListProps> = ({ cryptos, loading }) => {
             <CryptoItem key={crypto.id} crypto={crypto} index={index} />
           ))
         ) : (
-          <p className="text-center text-gray-500 dark:text-gray-400">
-            Криптовалюты не найдены
-          </p>
+          <NoResultsText>Криптовалюты не найдены</NoResultsText>
         )}
       </StyledCryptoList>
-    </div>
+    </CryptoListWrapper>
   );
 };
 
