@@ -1,4 +1,3 @@
-// src/styles/CryptoItemStyles.ts
 import styled from 'styled-components';
 
 export const ImageWrapper = styled.div`
@@ -24,7 +23,6 @@ export const StyledCryptoImage = styled.img<{ $loaded: boolean }>`
   display: ${({ $loaded }) => ($loaded ? 'block' : 'none')};
 `;
 
-// 🆕 Обёртка для колонки (замена div с flexDirection: 'column')
 export const CryptoColumn = styled.div`
   display: flex;
   flex-direction: column;

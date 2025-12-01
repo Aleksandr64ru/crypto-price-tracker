@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const CryptoList = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-`;
-
 export const CryptoItem = styled.div`
   display: grid;
   grid-template-columns: 40px 2fr 1fr 1fr 1fr;
@@ -23,23 +17,39 @@ export const CryptoItem = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-`;
 
-export const CryptoImage = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+  // 📱 Адаптация под планшеты
+  @media (max-width: 768px) {
+    grid-template-columns: 30px 2fr 1fr 1fr;
+    gap: 4px;
+    padding: 8px;
+  }
+
+  // 📱 Адаптация под мобильные
+  @media (max-width: 480px) {
+    grid-template-columns: 25px 1fr 1fr;
+    gap: 4px;
+    padding: 6px;
+  }
 `;
 
 export const Price = styled.span<{ isPositive: boolean }>`
   font-weight: bold;
   color: ${(props) =>
     props.isPositive ? props.theme.priceUp : props.theme.priceDown};
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 export const PriceChange = styled.span<{ isPositive: boolean }>`
   color: ${(props) =>
     props.isPositive ? props.theme.priceUp : props.theme.priceDown};
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const Volume = styled.span`
@@ -47,4 +57,8 @@ export const Volume = styled.span`
   color: ${(props) => props.theme.text};
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
