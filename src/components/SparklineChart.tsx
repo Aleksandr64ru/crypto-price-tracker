@@ -22,7 +22,7 @@ const SparklineChart: React.FC<SparklineChartProps> = ({
       <Sparklines data={data} width={width} height={height}>
         <SparklinesLine
           color={lineColor}
-          style={{ strokeWidth: 2, fill: 'none' }}
+          style={{ strokeWidth: 3, fill: 'none' }}
         />
       </Sparklines>
     </div>

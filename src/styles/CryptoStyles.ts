@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CryptoItem = styled.div`
   display: grid;
-  grid-template-columns: 40px 2fr 1fr 1fr 1fr;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr 0.5fr;
   gap: 6px;
   align-items: center;
   background-color: ${(props) => props.theme.cardBg};
@@ -20,16 +20,15 @@ export const CryptoItem = styled.div`
 
   // 📱 Адаптация под планшеты
   @media (max-width: 768px) {
-    grid-template-columns: 30px 2fr 1fr 1fr;
-    gap: 4px;
+    grid-template-columns: 30px 2fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
     padding: 8px;
   }
 
   // 📱 Адаптация под мобильные
   @media (max-width: 480px) {
-    grid-template-columns: 25px 1fr 1fr;
-    gap: 4px;
-    padding: 6px;
+    gap: 2px;
+    padding: 5px;
   }
 `;
 

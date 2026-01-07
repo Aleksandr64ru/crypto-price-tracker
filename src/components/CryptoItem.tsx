@@ -68,10 +68,8 @@ const CryptoItem: React.FC<CryptoItemProps> = memo(({ crypto, index }) => {
       <PriceChange isPositive={change24h > 0}>
         {change24h.toFixed(2)}%
       </PriceChange>
-
-      <Volume>Volume (24h): ${formatVolume(volume24h)}</Volume>
-
       <SparklineChart data={sparkline} />
+      <Volume>Volume (24h): ${formatVolume(volume24h)}</Volume>
     </StyledCryptoItem>
   );
 });
